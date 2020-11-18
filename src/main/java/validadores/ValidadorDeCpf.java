@@ -25,7 +25,7 @@ public class ValidadorDeCpf implements IValidadorDeCpf {
 	public static Properties getProp() throws IOException {
 		Properties props = new Properties();
 		FileInputStream file = new FileInputStream(
-				"C:\\Users\\DataCore\\eclipse-workspace\\FuncionarioBanco\\src\\main\\resources\\dados.properties");
+				"C:\\Users\\Matheus\\eclipse-workspace\\ApsBiometria\\src\\main\\resources\\dados.properties");
 		props.load(file);
 		return props;
 	}
@@ -39,13 +39,25 @@ public class ValidadorDeCpf implements IValidadorDeCpf {
 		while (validaErroCatch) {
 			validaErroCatch = false;
 			try {
-				PreparedStatement stmt = connection
-						.prepareStatement(props.getProperty("path.bancoDeDados.pegarDadosListaGerente"));
+				PreparedStatement stmtMinistro = connection
+						.prepareStatement(props.getProperty("path.bancoDeDados.pegarDadosListaMinistro"));
+				PreparedStatement stmtDiretor = connection
+						.prepareStatement(props.getProperty("path.bancoDeDados.pegarDadosListaMDiretor"));
+				PreparedStatement stmtGeral = connection
+						.prepareStatement(props.getProperty("path.bancoDeDados.pegarDadosListaGeral"));
 
 				cpf = sc.nextLong();
-				ResultSet rs = stmt.executeQuery();
-				if (rs.next()) {
-					cpfBanco = rs.getLong("CPF");
+				ResultSet rsMinistro = stmtMinistro.executeQuery();
+				ResultSet rsDiretor = stmtDiretor.executeQuery();
+				ResultSet rsGeral = stmtGeral.executeQuery();
+				if (rsMinistro.next()) {
+					cpfBanco = rsMinistro.getLong("CPF");
+				}
+				if (rsDiretor.next()) {
+					cpfBanco = rsDiretor.getLong("CPF");
+				}
+				if (rsGeral.next()) {
+					cpfBanco = rsGeral.getLong("CPF");
 				}
 
 				if (cpf != cpfBanco) {

@@ -7,17 +7,10 @@ public abstract class Funcionario {
 	String nome;
 	String sobrenome;
 	long cpf;
-	double salario;
 	int idade;
 	String estadoCivil;
-	double porcentagemDaBonificacao;
 	int loginDoCadastroDoSistema;
 	int senhaDoCadastroDoSistema;
-
-
-	public double getSalario() {
-		return salario;
-	}
 
 	public String getNome() {
 		return nome;
@@ -33,10 +26,6 @@ public abstract class Funcionario {
 
 	public void setCpf(long cpf) {
 		this.cpf = cpf;
-	}
-
-	public void setSalario(double salario) {
-		this.salario = salario;
 	}
 
 	public String getSobrenome() {
@@ -85,13 +74,5 @@ public abstract class Funcionario {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public double getPorcentagemDaBonificacao() {
-		return porcentagemDaBonificacao;
-	}
-
-	public void setPorcentagemDaBonificacao(double porcentagemDaBonificacao) {
-		this.porcentagemDaBonificacao = porcentagemDaBonificacao;
 	}
 }

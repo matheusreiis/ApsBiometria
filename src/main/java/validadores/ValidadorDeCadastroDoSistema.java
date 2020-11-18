@@ -23,7 +23,7 @@ public class ValidadorDeCadastroDoSistema implements ICadastroDoSistema {
 	public static Properties getProp() throws IOException {
 		Properties props = new Properties();
 		FileInputStream file = new FileInputStream(
-				"C:\\Users\\DataCore\\eclipse-workspace\\FuncionarioBanco\\src\\main\\resources\\dados.properties");
+				"C:\\Users\\Matheus\\eclipse-workspace\\ApsBiometria\\src\\main\\resources\\dados.properties");
 		props.load(file);
 		return props;
 	}
@@ -38,14 +38,26 @@ public class ValidadorDeCadastroDoSistema implements ICadastroDoSistema {
 		while (validaErroCatch) {
 			validaErroCatch = false;
 			try {
-				PreparedStatement stmt = connection
-						.prepareStatement(props.getProperty("path.bancoDeDados.pegarDadosListaGerente"));
+				PreparedStatement stmtMinistro = connection
+						.prepareStatement(props.getProperty("path.bancoDeDados.pegarDadosListaMinistro"));
+				PreparedStatement stmtDiretor = connection
+						.prepareStatement(props.getProperty("path.bancoDeDados.pegarDadosListaDiretor"));
+				PreparedStatement stmtGeral = connection
+						.prepareStatement(props.getProperty("path.bancoDeDados.pegarDadosListaGeral"));
 
 				loginCadastro = sc.nextInt();
 
-				ResultSet rs = stmt.executeQuery();
-				if (rs.next()) {
-					loginBanco = rs.getInt("Login_do_Sistema");
+				ResultSet rsMinistro = stmtMinistro.executeQuery();
+				ResultSet rsDiretor = stmtDiretor.executeQuery();
+				ResultSet rsGeral = stmtGeral.executeQuery();
+				if (rsMinistro.next()) {
+					loginBanco = rsMinistro.getInt("Login_do_Sistema");
+				}
+				if (rsDiretor.next()) {
+					loginBanco = rsDiretor.getInt("Login_do_Sistema");
+				}
+				if (rsGeral.next()) {
+					loginBanco = rsGeral.getInt("Login_do_Sistema");
 				}
 
 				if (loginCadastro != loginBanco) {
